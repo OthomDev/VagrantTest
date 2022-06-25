@@ -1,0 +1,25 @@
+---
+- hosts: local
+  tasks:
+  - name: 'Install required software'
+    apt:
+      name: "{{ packages }}"
+      state: present
+    become: true
+    vars:
+      packages: Setting up dev envirement
+        - python3-pip
+        - docker
+        - docker-compose
+  - name: "Starting Docker"
+    become: true
+    service:
+      name: docker
+      state: started
+      enabled: yes
+  - name: "Pull git repo"
+    git:
+      repo: git@github.com:OthomDev/VagrantTest.git
+      dest: /tmp
+      version: master
+      accept_hostkey: yes
