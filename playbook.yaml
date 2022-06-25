@@ -1,13 +1,14 @@
 ---
-- hosts: local
+- hosts: localhost
+  connection: local
   tasks:
-  - name: 'Install required software'
+  - name: "Install required software"
     apt:
       name: "{{ packages }}"
       state: present
     become: true
     vars:
-      packages: Setting up dev envirement
+      packages:
         - python3-pip
         - docker
         - docker-compose
@@ -20,6 +21,5 @@
   - name: "Pull git repo"
     git:
       repo: git@github.com:OthomDev/VagrantTest.git
-      dest: /tmp
+      dest: /tmp/embedded-tomcat-spring/
       version: master
-      accept_hostkey: yes
